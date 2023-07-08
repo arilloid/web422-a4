@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import { useRouter } from 'next/router';
 import Error from 'next/error';
-import {Row, Col, Pagination} from 'react-bootstrap';
+import {Row, Col, Pagination, Card} from 'react-bootstrap';
 import ArtworkCard from '@/src/components/ArtworkCard';
 
 const PER_PAGE = 12;
@@ -48,13 +48,19 @@ export default function Artwork(){
     return (
         <>
             <Row className="gy-4">
-                {artworkList.length > 0 ? 
-                (artworkList[page - 1].map((currentObjectID) => 
-                    (<Col lg={3} key={currentObjectID}>
-                        <ArtworkCard objectID={currentObjectID} />
-                    </Col>)
-                ))
-                  : <h4>Nothing Here</h4>}
+                {artworkList.length > 0 ? (
+                    artworkList[page - 1].map((currentObjectID) => 
+                        (<Col lg={3} key={currentObjectID}>
+                            <ArtworkCard objectID={currentObjectID} />
+                        </Col>)
+                )) : (
+                    <Card>
+                        <Card.Body>
+                            <h4>Nothing Here</h4>
+                            <p>Try searching for something else.</p>
+                        </Card.Body>
+                    </Card>
+                )}
             </Row>
             <br/><br/> 
             {artworkList.length > 0 && 
